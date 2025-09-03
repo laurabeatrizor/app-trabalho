@@ -13,28 +13,56 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Avoid CORS problem for client app: npm install cors --save
 const cors = require('cors')
 var corsOptions = {
-	origin: 'http://localhost:4200', // specific address, avoiding malicious requests
-	optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
+   origin: 'http://localhost:4200', // specific address, avoiding malicious requests
+   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
 }
 app.use(cors(corsOptions))
 
 
-app.get('/usuario', function (req, res) {
-   fs.readFile(__dirname + "/dados.json", function (err, data) {
+// retorna a lista de solicitações.
+app.get('/solicitacao', function (req, res) {
+   fs.readFile(__dirname + "/solicitacao.json", function (err, data) {
       res.end(data);
    });
 });
 
-app.post('/usuario', function (req, res) {
-   console.log('gravando dados do usuário');
-   const usrData = req.body;
-   // console.log(usrData);
-   fs.writeFile(__dirname + "/dados.json",
-      JSON.stringify(usrData), function (err) { 
-      });
-   res.end("{ \"msg\": \"OK\" }");
-});
+app.post('/solicitacao', function (req, res) {
+   console.log('gravando dados da solicitacao');
 
+   const usrData = req.body;
+   const filePath = __dirname + "/solicitacao.json";
+
+   // Lê o arquivo existente
+   fs.readFile(filePath, "utf8", function (err, dataLeitura) {
+      if (err) {
+         // Se o arquivo não existir, inicia com array vazio
+         console.error("Erro ao ler arquivo:", err);
+         data = "[]";
+      }
+
+      let solicitacoes = [];
+      try {
+         solicitacoes = JSON.parse(dataLeitura);
+         if (!Array.isArray(solicitacoes)) {
+            solicitacoes = [];
+         }
+      } catch (e) {
+         solicitacoes = [];
+      }
+
+      // Adiciona o novo dado
+      solicitacoes.push(usrData);
+
+      // Escreve de volta no arquivo
+      fs.writeFile(filePath, JSON.stringify(solicitacoes, null, 2), function (err) {
+         if (err) {
+            console.error("Erro ao salvar:", err);
+            return res.status(500).json({ msg: "Erro ao salvar" });
+         }
+         res.json({ msg: "OK" });
+      });
+   });
+});
 
 var server = app.listen(3000, function () {
 
