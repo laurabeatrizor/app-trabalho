@@ -1,0 +1,27 @@
+{
+    "name": "web-server-node",
+    "version": "1.0.0",
+    "description": "Servidor web simples em Node.js com Express para leitura e gravação de dados em JSON",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js"
+    },
+    "keywords": [
+        "node",
+        "express",
+        "api",
+        "json",
+        "cors"
+    ],
+    "author": "Seu Nome",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.20.2",
+        "cors": "^2.8.5",
+        "express": "^4.18.2"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.0"
+    }
+}

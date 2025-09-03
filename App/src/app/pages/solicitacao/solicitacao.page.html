@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Nova Solicitação {{titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="solicitacaoForm" (ngSubmit)="cadastrar()">
+
+    <ion-item>
+      <ion-label position="stacked">Nome</ion-label>
+      <ion-input formControlName="nome" type="text" placeholder="Digite seu nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Cidade</ion-label>
+      <ion-input formControlName="cidade" type="text" placeholder="Digite sua cidade"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Tipo de ajuda</ion-label>
+      <ion-select formControlName="tipo" placeholder="Selecione">
+        <ion-select-option value="0" [disabled]="true">Voluntário</ion-select-option>
+        <ion-select-option value="1" [disabled]="true">Preciso de ajuda</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Descrição</ion-label>
+      <ion-textarea formControlName="descricao" maxlength="500" placeholder="Descreva sua solicitação"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="!solicitacaoForm.valid">
+      Cadastrar
+    </ion-button>
+  </form>
+</ion-content>
