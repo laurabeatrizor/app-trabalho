@@ -64,6 +64,32 @@ app.post('/solicitacao', function (req, res) {
    });
 });
 
+// DELETE /solicitacao/:nome
+app.delete('/solicitacao/:nome', function (req, res) {
+   const nome = req.params.nome;
+   const filePath = __dirname + "/solicitacao.json";
+
+   fs.readFile(filePath, "utf8", function (err, dataLeitura) {
+      if (err) return res.status(500).json({ msg: "Erro ao ler arquivo" });
+
+      let solicitacoes = [];
+      try {
+         solicitacoes = JSON.parse(dataLeitura);
+         if (!Array.isArray(solicitacoes)) solicitacoes = [];
+      } catch (e) {
+         solicitacoes = [];
+      }
+
+      // Remove a solicitação pelo nome (ou outra propriedade única)
+      const filtradas = solicitacoes.filter(s => s.nome !== nome);
+
+      fs.writeFile(filePath, JSON.stringify(filtradas, null, 2), function (err) {
+         if (err) return res.status(500).json({ msg: "Erro ao salvar arquivo" });
+         res.json({ msg: "Solicitação deletada" });
+      });
+   });
+});
+
 var server = app.listen(3000, function () {
 
    var host = server.address().address;

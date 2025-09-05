@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TipoSolicitacao } from './models/tipo-solicitacao.enum'
 
 @Component({
   selector: 'app-root',
@@ -8,11 +7,9 @@ import { TipoSolicitacao } from './models/tipo-solicitacao.enum'
   standalone: false,
 })
 export class AppComponent {
-  PossoAjudar: TipoSolicitacao;
-  QueroAjuda: TipoSolicitacao;
+  PossoAjudar: string = "Voluntário";
+  QueroAjuda: string = "Preciso de ajuda";
 
   constructor() {
-    this.PossoAjudar = TipoSolicitacao.PossoAjudar;
-    this.QueroAjuda = TipoSolicitacao.QueroAjuda;
   }
 }

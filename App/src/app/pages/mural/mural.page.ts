@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from "@ionic/angular";
+import { Solicitacao } from 'src/app/models/solicitacao.model';
+import { SolicitacaoService } from 'src/app/services/solicitacao.service';
 
 @Component({
   selector: 'app-mural',
@@ -11,41 +13,27 @@ import { IonicModule } from "@ionic/angular";
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class MuralPage implements OnInit {
+  filtroSelecionado: string = 'Todas';
+  solicitacoes: Solicitacao[] = [];
 
-  filtroSelecionado: string = 'todos';
-
-  solicitacoes = [
-    {
-      nome: 'Fulano',
-      tipo: 'voluntario',
-      descricao: 'Disponível para cortar a grama',
-      telefone: '(51) 99999-9999'
-    },
-    {
-      nome: 'Ciclano',
-      tipo: 'Precisa de ajuda',
-      descricao: 'Preciso de ajuda com compras',
-      telefone: '(51) 98888-8888'
-    },
-    {
-      nome: 'Beltrano',
-      tipo: 'voluntario',
-      descricao: 'Disponível para dar aulas de reforço',
-      telefone: '(51) 97777-7777'
-    }
-  ];
-  filtrarSolicitacoes() {
-    if (this.filtroSelecionado === 'todos') {
-      return this.solicitacoes;
-    }
-    return this.solicitacoes.filter(s => s.tipo === this.filtroSelecionado);
-  }
-
-
-
-  constructor() { }
+  constructor(private solicitacaoService: SolicitacaoService) { }
 
   ngOnInit() {
+
+    this.solicitacaoService.getSolicitacoes().subscribe({
+      next: async (res) => {
+        this.solicitacoes = res;
+      },
+      error: (err) => console.error('Erro ao consultar:', err)
+    });
+
   }
 
+  filtrarSolicitacoes() {
+    if (this.filtroSelecionado === 'Todas') {
+      return this.solicitacoes;
+    }
+
+    return this.solicitacoes.filter(s => s.tipo === this.filtroSelecionado);
+  }
 }

@@ -11,17 +11,36 @@
       <ion-label position="stacked">Nome</ion-label>
       <ion-input formControlName="nome" type="text" placeholder="Digite seu nome"></ion-input>
     </ion-item>
+    @if (solicitacaoForm.get('nome')?.touched && solicitacaoForm.get('nome')?.hasError('required')) {
+    <ion-note color="danger">Nome é obrigatório.</ion-note>
+    }
 
     <ion-item>
       <ion-label position="stacked">Cidade</ion-label>
       <ion-input formControlName="cidade" type="text" placeholder="Digite sua cidade"></ion-input>
     </ion-item>
+    @if (solicitacaoForm.get('cidade')?.touched && solicitacaoForm.get('cidade')?.hasError('required')) {
+    <ion-note color="danger">Cidade é obrigatória.</ion-note>
+    }
+
+    <ion-item>
+      <ion-label position="stacked">Telefone</ion-label>
+      <ion-input formControlName="telefone" type="text" placeholder="Digite seu número de telefone"></ion-input>
+    </ion-item>
+    @if (solicitacaoForm.get('telefone')?.touched) {
+    @if (solicitacaoForm.get('telefone')?.hasError('required')) {
+    <ion-note color="danger">Telefone é obrigatório.</ion-note>
+    }
+    @if (solicitacaoForm.get('telefone')?.hasError('pattern')) {
+    <ion-note color="danger">Formato de telefone inválido. Use (51) 99999-9999.</ion-note>
+    }
+    }
 
     <ion-item>
       <ion-label position="stacked">Tipo de ajuda</ion-label>
       <ion-select formControlName="tipo" placeholder="Selecione">
-        <ion-select-option value="0" [disabled]="true">Voluntário</ion-select-option>
-        <ion-select-option value="1" [disabled]="true">Preciso de ajuda</ion-select-option>
+        <ion-select-option value="Voluntário" [disabled]="true">Voluntário</ion-select-option>
+        <ion-select-option value="Preciso de ajuda" [disabled]="true">Preciso de ajuda</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -29,6 +48,9 @@
       <ion-label position="stacked">Descrição</ion-label>
       <ion-textarea formControlName="descricao" maxlength="500" placeholder="Descreva sua solicitação"></ion-textarea>
     </ion-item>
+    @if (solicitacaoForm.get('descricao')?.touched && solicitacaoForm.get('descricao')?.hasError('required')) {
+    <ion-note color="danger">Descrição é obrigatória.</ion-note>
+    }
 
     <ion-button expand="block" type="submit" [disabled]="!solicitacaoForm.valid">
       Cadastrar

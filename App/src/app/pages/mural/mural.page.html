@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-toolbar>
     <ion-title>Mural Solidário</ion-title>
@@ -9,20 +8,22 @@
 
   <!-- Filtro -->
   <ion-segment [(ngModel)]="filtroSelecionado">
-    <ion-segment-button value="todos">Todos</ion-segment-button>
-    <ion-segment-button value="voluntario">Voluntário</ion-segment-button>
-    <ion-segment-button value="Precisa de ajuda">Preciso de ajuda</ion-segment-button>
+    <ion-segment-button value="Todas">Todas</ion-segment-button>
+    <ion-segment-button value="Voluntário">Voluntário</ion-segment-button>
+    <ion-segment-button value="Preciso de ajuda">Preciso de ajuda</ion-segment-button>
   </ion-segment>
 
-  <!-- Lista -->
   <ion-list>
     <ion-item *ngFor="let item of filtrarSolicitacoes()">
       <ion-label>
         <h2>{{ item.nome }}</h2>
+        <p>{{ item.cidade }}</p>
         <p>{{ item.descricao }}</p>
-        <p><strong>{{ item.tipo | titlecase }}</strong></p>
         <p>📞 {{ item.telefone }}</p>
+        <ion-badge color="primary">{{ item.tipo }}</ion-badge>
       </ion-label>
+    
+
     </ion-item>
   </ion-list>
 

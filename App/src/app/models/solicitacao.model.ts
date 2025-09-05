@@ -1,8 +1,7 @@
-import { TipoSolicitacao } from "./tipo-solicitacao.enum";
-
 export interface Solicitacao {
   nome: string;
   cidade: string;
-  tipo: TipoSolicitacao;
+  telefone: string;
+  tipo: string;
   descricao: string;
 }

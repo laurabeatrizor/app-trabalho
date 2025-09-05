@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Solicitacao } from '../models/solicitacao.model';
-import { TipoSolicitacao } from '../models/tipo-solicitacao.enum';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -12,11 +11,15 @@ export class SolicitacaoService {
 
   constructor(private http: HttpClient) { }
 
+  getSolicitacoes(): Observable<Solicitacao[]> {
+    return this.http.get<Solicitacao[]>('http://localhost:3000/solicitacao');
+  }
+
   adicionar(solicitacao: Solicitacao): Observable<Solicitacao> {
     return this.http.post<Solicitacao>(this.apiUrl, solicitacao);
   }
 
-  listar(TipoSolicitacao: TipoSolicitacao): Solicitacao[] {
-    return []
+  deletar(nome: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${nome}`);
   }
 }
