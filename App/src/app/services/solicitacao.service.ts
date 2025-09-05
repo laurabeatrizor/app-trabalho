@@ -18,8 +18,4 @@ export class SolicitacaoService {
   adicionar(solicitacao: Solicitacao): Observable<Solicitacao> {
     return this.http.post<Solicitacao>(this.apiUrl, solicitacao);
   }
-
-  deletar(nome: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${nome}`);
-  }
 }

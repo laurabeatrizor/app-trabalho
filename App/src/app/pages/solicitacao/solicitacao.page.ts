@@ -17,6 +17,7 @@ import { AlertController } from '@ionic/angular';
 export class SolicitacaoPage implements OnInit {
   solicitacaoForm!: FormGroup;
   titulo: string = "";
+  solicitacoes: Solicitacao[] = [];
 
   constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute,
     private solicitacaoService: SolicitacaoService, private alertController: AlertController) { }
@@ -35,6 +36,7 @@ export class SolicitacaoPage implements OnInit {
       tipo: [tipo, Validators.required],
       descricao: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]]
     });
+    
   }
 
   cadastrar() {

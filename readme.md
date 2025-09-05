@@ -1,4 +1,5 @@
 # Sobre
+O aplicativo Vizinho Solidário é uma forma simples de aproximar quem precisa de ajuda com quem quer ajudar, onde o usuário pode cadastrar uma solicitação quando precisar de apoio ou pode oferecer ajuda de forma voluntária.
 
 
 ## Como rodar o app
